@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestión emocional | Taller online gratuito</title>
+  <meta name="description" content="Taller online gratuito de gestión emocional para mujeres a partir de 50 años. Sábado 11 de julio a las 11:00 h. Imparte Rosario, psicóloga coach." />
+  <style>
+    :root {
+      --fondo: #fbf7f2;
+      --tarjeta: #ffffff;
+      --texto: #2b2420;
+      --suave: #6f625b;
+      --principal: #9b6a57;
+      --principal-oscuro: #7c5143;
+      --secundario: #ead8cc;
+      --borde: #eadfd8;
+      --sombra: 0 18px 45px rgba(60, 42, 33, 0.12);
+      --radio: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .contenedor {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 64px 0 42px;
+      background:
+        radial-gradient(circle at top left, rgba(155, 106, 87, 0.18), transparent 36%),
+        linear-gradient(180deg, #fffaf6 0%, var(--fondo) 100%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .etiqueta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--secundario);
+      color: var(--principal-oscuro);
+      font-weight: 700;
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 7vw, 4.8rem);
+      line-height: 0.98;
+      margin: 0 0 18px;
+      letter-spacing: -0.05em;
+    }
+
+    .subtitulo {
+      font-size: clamp(1.1rem, 3vw, 1.45rem);
+      color: var(--suave);
+      max-width: 740px;
+      margin: 0 0 26px;
+    }
+
+    .acciones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .boton {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 50px;
+      padding: 14px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 800;
+      border: 2px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .boton:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(60, 42, 33, 0.15);
+    }
+
+    .boton-principal {
+      background: var(--principal);
+      color: white;
+    }
+
+    .boton-secundario {
+      background: white;
+      color: var(--principal-oscuro);
+      border-color: var(--borde);
+    }
+
+    .resumen {
+      display: grid;
+      gap: 12px;
+      padding: 24px;
+      background: var(--tarjeta);
+      border: 1px solid var(--borde);
+      border-radius: var(--radio);
+      box-shadow: var(--sombra);
+    }
+
+    .resumen-item {
+      padding: 14px;
+      border-radius: 16px;
+      background: #fffaf7;
+      border: 1px solid var(--borde);
+    }
+
+    .resumen-item strong {
+      display: block;
+      color: var(--principal-oscuro);
+      margin-bottom: 2px;
+    }
+
+    section {
+      padding: 38px 0;
+    }
+
+    .seccion-cabecera {
+      max-width: 760px;
+      margin-bottom: 22px;
+    }
+
+    h2 {
+      font-size: clamp(1.7rem, 4vw, 2.6rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin: 0 0 12px;
+    }
+
+    .texto-suave {
+      color: var(--suave);
+      margin: 0;
+    }
+
+    .tarjeta {
+      background: var(--tarjeta);
+      border: 1px solid var(--borde);
+      border-radius: var(--radio);
+      padding: 24px;
+      box-shadow: 0 12px 35px rgba(60, 42, 33, 0.07);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .beneficio h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+    }
+
+    .beneficio p {
+      margin: 0;
+      color: var(--suave);
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 10px 0;
+    }
+
+    .datos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .dato {
+      padding: 18px;
+      border-radius: 18px;
+      background: #fffaf7;
+      border: 1px solid var(--borde);
+    }
+
+    .dato span {
+      display: block;
+      color: var(--suave);
+      font-size: 0.92rem;
+    }
+
+    .dato strong {
+      font-size: 1.05rem;
+    }
+
+    .inscripcion {
+      background: #fff4ec;
+      border-top: 1px solid var(--borde);
+      border-bottom: 1px solid var(--borde);
+    }
+
+    .qr-placeholder {
+      display: grid;
+      place-items: center;
+      min-height: 210px;
+      border: 2px dashed #caa997;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.55);
+      text-align: center;
+      color: var(--principal-oscuro);
+      padding: 20px;
+    }
+
+    details {
+      background: var(--tarjeta);
+      border: 1px solid var(--borde);
+      border-radius: 18px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    details p {
+      margin: 10px 0 0;
+      color: var(--suave);
+    }
+
+    .final {
+      text-align: center;
+      padding-bottom: 64px;
+    }
+
+    .final .tarjeta {
+      background: linear-gradient(135deg, var(--principal), var(--principal-oscuro));
+      color: white;
+    }
+
+    .final .texto-suave {
+      color: rgba(255,255,255,0.86);
+    }
+
+    .final .boton {
+      background: white;
+      color: var(--principal-oscuro);
+      margin-top: 18px;
+    }
+
+    footer {
+      padding: 24px 0 34px;
+      color: var(--suave);
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    @media (max-width: 820px) {
+      .hero {
+        padding-top: 44px;
+      }
+
+      .hero-grid,
+      .grid-2,
+      .grid-4,
+      .datos {
+        grid-template-columns: 1fr;
+      }
+
+      .acciones {
+        flex-direction: column;
+      }
+
+      .boton {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="contenedor hero-grid">
+      <div>
+        <div class="etiqueta">Taller online gratuito</div>
+        <h1>Gestión emocional</h1>
+        <p class="subtitulo">
+          Aprende a entender y gestionar tus emociones de forma sencilla, cercana y práctica.
+        </p>
+        <p>
+          Un taller online gratuito para mujeres a partir de 50 años que quieren comprender mejor lo que sienten y encontrar herramientas prácticas para vivir con más calma y equilibrio.
+        </p>
+        <div class="acciones">
+          <a class="boton boton-principal" href="https://forms.gle/Y1MW8Ma6XKVm3AsWA" target="_blank" rel="noopener">Inscribirme gratis</a>
+          <a class="boton boton-secundario" href="https://wa.me/34657073866?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20taller%20gratuito%20de%20Gesti%C3%B3n%20Emocional." target="_blank" rel="noopener">Contactar por WhatsApp</a>
+        </div>
+      </div>
+
+      <aside class="resumen" aria-label="Resumen del taller">
+        <div class="resumen-item">
+          <strong>Fecha</strong>
+          Sábado 11 de julio
+        </div>
+        <div class="resumen-item">
+          <strong>Hora</strong>
+          11:00 h
+        </div>
+        <div class="resumen-item">
+          <strong>Duración</strong>
+          2 horas
+        </div>
+        <div class="resumen-item">
+          <strong>Modalidad</strong>
+          Online
+        </div>
+        <div class="resumen-item">
+          <strong>Precio</strong>
+          Gratis
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="contenedor grid-2">
+        <div class="seccion-cabecera">
+          <h2>¿Para quién es este taller?</h2>
+          <p class="texto-suave">
+            Para mujeres a partir de 50 años que quieren escucharse, comprender mejor lo que sienten y aprender herramientas prácticas para gestionar sus emociones en el día a día.
+          </p>
+        </div>
+        <div class="tarjeta">
+          <p>
+            Es para ti si a veces sientes que te cuesta poner límites, expresar lo que necesitas, soltar preocupaciones o manejar emociones como la tristeza, la rabia, la ansiedad, la culpa o el cansancio emocional.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="contenedor">
+        <div class="seccion-cabecera">
+          <h2>Qué aprenderás</h2>
+          <p class="texto-suave">Herramientas sencillas para cuidarte mejor emocionalmente.</p>
+        </div>
+
+        <div class="grid-4">
+          <div class="tarjeta beneficio">
+            <h3>Reconocer tus emociones</h3>
+            <p>Aprenderás a identificar lo que sientes y ponerle nombre.</p>
+          </div>
+          <div class="tarjeta beneficio">
+            <h3>Comprender lo que necesitas</h3>
+            <p>Descubrirás qué mensaje hay detrás de cada emoción.</p>
+          </div>
+          <div class="tarjeta beneficio">
+            <h3>Gestionar con más calma</h3>
+            <p>Conocerás herramientas sencillas para recuperar equilibrio.</p>
+          </div>
+          <div class="tarjeta beneficio">
+            <h3>Cuidarte mejor</h3>
+            <p>Aprenderás a relacionarte contigo misma de forma más amable.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="contenedor grid-2">
+        <div>
+          <h2>Programa del taller</h2>
+          <p class="texto-suave">Durante las 2 horas del taller trabajaremos de forma sencilla y práctica.</p>
+        </div>
+        <div class="tarjeta">
+          <ul>
+            <li>Qué son las emociones y para qué sirven.</li>
+            <li>Cómo identificar lo que sientes.</li>
+            <li>Cómo aceptar una emoción sin bloquearla ni dejarte arrastrar por ella.</li>
+            <li>Herramientas para recuperar calma y equilibrio.</li>
+            <li>Ejercicios prácticos para aplicar en tu vida diaria.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="contenedor">
+        <div class="seccion-cabecera">
+          <h2>Datos del taller</h2>
+        </div>
+
+        <div class="datos">
+          <div class="dato"><span>Fecha</span><strong>Sábado 11 de julio</strong></div>
+          <div class="dato"><span>Hora</span><strong>11:00 h</strong></div>
+          <div class="dato"><span>Duración</span><strong>2 horas</strong></div>
+          <div class="dato"><span>Modalidad</span><strong>Online</strong></div>
+          <div class="dato"><span>Precio</span><strong>Gratis</strong></div>
+          <div class="dato"><span>Imparte</span><strong>Rosario, psicóloga coach</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="inscripcion">
+      <div class="contenedor grid-2">
+        <div>
+          <h2>Reserva tu plaza gratuita</h2>
+          <p>
+            Puedes inscribirte rellenando el formulario, escribiendo por WhatsApp o escaneando el código QR cuando esté disponible.
+          </p>
+          <div class="acciones">
+            <a class="boton boton-principal" href="https://forms.gle/Y1MW8Ma6XKVm3AsWA" target="_blank" rel="noopener">Inscribirme por formulario</a>
+            <a class="boton boton-secundario" href="https://wa.me/34657073866?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20taller%20gratuito%20de%20Gesti%C3%B3n%20Emocional." target="_blank" rel="noopener">Contactar por WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="qr-placeholder">
+          <div>
+            <strong>Espacio para el código QR</strong>
+            <p>Lo añadiremos al final, cuando tengamos el enlace definitivo de la landing publicada.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="contenedor">
+        <div class="seccion-cabecera">
+          <h2>Preguntas frecuentes</h2>
+        </div>
+
+        <details>
+          <summary>¿Necesito experiencia previa?</summary>
+          <p>No. El taller está pensado para explicar todo de forma clara, sencilla y cercana.</p>
+        </details>
+
+        <details>
+          <summary>¿Es online?</summary>
+          <p>Sí. Podrás asistir desde casa con tu móvil, tablet u ordenador.</p>
+        </details>
+
+        <details>
+          <summary>¿Tiene coste?</summary>
+          <p>No. El taller es gratuito.</p>
+        </details>
+
+        <details>
+          <summary>¿A quién va dirigido?</summary>
+          <p>A mujeres a partir de 50 años interesadas en mejorar su bienestar emocional.</p>
+        </details>
+
+        <details>
+          <summary>¿Cómo me apunto?</summary>
+          <p>Puedes apuntarte mediante formulario, WhatsApp o escaneando el código QR cuando esté disponible.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="contenedor">
+        <div class="tarjeta">
+          <h2>Da el primer paso para cuidar tu bienestar emocional</h2>
+          <p class="texto-suave">
+            Reserva tu plaza gratuita y empieza a entender mejor tus emociones.
+          </p>
+          <a class="boton" href="https://forms.gle/Y1MW8Ma6XKVm3AsWA" target="_blank" rel="noopener">Inscribirme gratis</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="contenedor">
+      Taller de Gestión Emocional · Online · Gratuito
+    </div>
+  </footer>
+</body>
+</html>
