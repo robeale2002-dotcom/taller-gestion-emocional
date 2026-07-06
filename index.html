@@ -62,12 +62,20 @@
     }
 
     .sello-gratis {
-      width: 72px;
-      height: auto;
-      border-radius: 10px;
-      opacity: 0.82;
-      transform: rotate(-3deg);
-      box-shadow: 0 4px 10px rgba(113,73,56,0.10);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 9px;
+      border: 2px solid rgba(179,70,65,0.58);
+      border-radius: 8px;
+      color: #a14641;
+      background: rgba(255,250,245,0.58);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.72), 0 3px 8px rgba(113,73,56,0.08);
+      font-size: 0.68rem;
+      line-height: 1;
+      letter-spacing: 0.09em;
+      transform: rotate(-4deg);
+      white-space: nowrap;
     }
 
     .hero {
@@ -582,7 +590,8 @@
       }
 
       .sello-gratis {
-        width: 60px;
+        padding: 4px 7px;
+        font-size: 0.62rem;
       }
 
       h1 {
@@ -664,7 +673,7 @@
       <div class="hero-panel">
         <div class="hero-grid">
           <div class="hero-texto">
-            <div class="etiqueta">Taller online gratuito <img class="sello-gratis" src="sello-gratis.png" alt="Gratis" /></div>
+            <div class="etiqueta">Taller online gratuito <span class="sello-gratis">GRATIS</span></div>
             <h1>Gestión emocional</h1>
             <p class="subtitulo">Aprende a entender y gestionar tus emociones de forma sencilla, cercana y práctica.</p>
             <p>Un espacio pensado para mujeres a partir de 50 años que desean comprender mejor lo que sienten, recuperar calma interior y descubrir herramientas para cuidarse emocionalmente con más conciencia.</p>
