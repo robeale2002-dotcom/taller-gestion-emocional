@@ -180,10 +180,27 @@
       50% { transform: translateY(-5px) scale(1.015); }
     }
 
+    .animaciones-scroll main section {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 1.1s ease-out, transform 1.1s ease-out;
+    }
+
+    .animaciones-scroll main section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .hero-panel,
       .hero-media img {
         animation: none;
+      }
+
+      .animaciones-scroll main section {
+        opacity: 1;
+        transform: none;
+        transition: none;
       }
     }
 
@@ -843,5 +860,28 @@
   <footer>
     <div class="contenedor">Taller de Gestión Emocional · Online · Gratuito</div>
   </footer>
+  <script>
+    const reducirMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!reducirMovimiento && 'IntersectionObserver' in window) {
+      document.documentElement.classList.add('animaciones-scroll');
+
+      const observadorSecciones = new IntersectionObserver((entradas, observador) => {
+        entradas.forEach((entrada) => {
+          if (entrada.isIntersecting) {
+            entrada.target.classList.add('visible');
+            observador.unobserve(entrada.target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -6% 0px'
+      });
+
+      document.querySelectorAll('main section').forEach((seccion) => {
+        observadorSecciones.observe(seccion);
+      });
+    }
+  </script>
 </body>
 </html>
