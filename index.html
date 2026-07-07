@@ -61,6 +61,23 @@
       margin-bottom: 18px;
     }
 
+    .sello-gratis {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 9px;
+      border: 2px solid rgba(179,70,65,0.58);
+      border-radius: 8px;
+      color: #a14641;
+      background: rgba(255,250,245,0.58);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.72), 0 3px 8px rgba(113,73,56,0.08);
+      font-size: 0.68rem;
+      line-height: 1;
+      letter-spacing: 0.09em;
+      transform: rotate(-4deg);
+      white-space: nowrap;
+    }
+
     .hero {
       padding: 18px 0 30px;
     }
@@ -164,10 +181,36 @@
     }
 
     .hero-media img {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       animation: flotar-suave 8s ease-in-out infinite;
+      transition: opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .imagen-principal-hover {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .hero-media.mostrar-alternativa .imagen-principal-base {
+      opacity: 0;
+    }
+
+    .hero-media.mostrar-alternativa .imagen-principal-hover {
+      opacity: 1;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .hero-media:hover .imagen-principal-base {
+        opacity: 0;
+      }
+
+      .hero-media:hover .imagen-principal-hover {
+        opacity: 1;
+      }
     }
 
     @keyframes aparecer-suave {
@@ -566,6 +609,17 @@
         padding: 18px 14px 10px;
       }
 
+      .etiqueta {
+        gap: 7px;
+        padding: 9px 13px;
+        font-size: 0.9rem;
+      }
+
+      .sello-gratis {
+        padding: 4px 7px;
+        font-size: 0.62rem;
+      }
+
       h1 {
         font-size: 3.1rem;
       }
@@ -604,19 +658,25 @@
       }
 
       .hero-media {
-        min-height: 360px;
+        min-height: 0;
+        padding-top: 360px;
+      }
+
+      .hero-media img {
+        height: 360px;
       }
 
       .hero-overlay {
-        left: 10px;
-        right: 10px;
-        bottom: 10px;
-        gap: 6px;
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        padding: 12px;
       }
 
       .mini-dato {
-        padding: 7px 9px;
-        min-width: 78px;
+        padding: 9px 10px;
+        min-width: 0;
       }
 
       .mini-dato span {
@@ -645,7 +705,7 @@
       <div class="hero-panel">
         <div class="hero-grid">
           <div class="hero-texto">
-            <div class="etiqueta">Taller online gratuito</div>
+            <div class="etiqueta">Taller online gratuito <span class="sello-gratis">GRATIS</span></div>
             <h1>Gestión emocional</h1>
             <p class="subtitulo">Aprende a entender y gestionar tus emociones de forma sencilla, cercana y práctica.</p>
             <p>Un espacio pensado para mujeres a partir de 50 años que desean comprender mejor lo que sienten, recuperar calma interior y descubrir herramientas para cuidarse emocionalmente con más conciencia.</p>
@@ -657,7 +717,8 @@
           </div>
 
           <div class="hero-media">
-            <img src="imagen-principal.jpg" alt="Mujer en un ambiente sereno y cálido, asociado al bienestar emocional" />
+            <img class="imagen-principal-base" src="imagen-principal.jpg" alt="Mujer en un ambiente sereno y cálido, asociado al bienestar emocional" />
+            <img class="imagen-principal-hover" src="imagen-principal-hover.png" alt="" />
             <div class="hero-overlay">
               <div class="mini-dato"><span>Fecha</span><strong>Sábado 11 de julio de 2026</strong></div>
               <div class="mini-dato"><span>Hora</span><strong>11:00 h · Hora de España</strong></div>
@@ -892,6 +953,16 @@
 
       document.querySelectorAll('main section').forEach((seccion) => {
         observadorSecciones.observe(seccion);
+      });
+    }
+
+    const imagenPrincipal = document.querySelector('.hero-media');
+    const imagenPrincipalBase = document.querySelector('.imagen-principal-base');
+    const dispositivoSinHover = window.matchMedia('(hover: none)').matches;
+
+    if (imagenPrincipal && imagenPrincipalBase && dispositivoSinHover) {
+      imagenPrincipalBase.addEventListener('click', () => {
+        imagenPrincipal.classList.toggle('mostrar-alternativa');
       });
     }
   </script>
