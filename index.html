@@ -6,6 +6,7 @@
   <title>Taller gratuito de Gestión Emocional</title>
   <meta name="description" content="Taller online gratuito de gestión emocional para mujeres a partir de 50 años." />
   <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet" />
+  <script>document.documentElement.classList.add('acceso-pendiente');</script>
   <style>
     :root {
       --fondo: #f8efe8;
@@ -40,6 +41,80 @@
 
     img { max-width: 100%; display: block; }
     a { color: inherit; text-decoration: none; }
+
+    .acceso-pendiente body > :not(.acceso-overlay) {
+      visibility: hidden;
+    }
+
+    .acceso-overlay {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(237,210,199,0.95), transparent 34%),
+        radial-gradient(circle at 88% 18%, rgba(223,231,217,0.9), transparent 32%),
+        linear-gradient(180deg, #fffaf6, var(--fondo));
+      z-index: 9999;
+    }
+
+    .acceso-overlay[hidden] {
+      display: none;
+    }
+
+    .acceso-panel {
+      width: min(100%, 480px);
+      padding: clamp(28px, 6vw, 48px);
+      border: 1px solid var(--borde);
+      border-radius: var(--radio-xl);
+      background: rgba(255,250,245,0.9);
+      box-shadow: var(--sombra);
+      text-align: center;
+    }
+
+    .acceso-panel h1 {
+      margin-bottom: 12px;
+      font-size: clamp(2.2rem, 8vw, 3.4rem);
+    }
+
+    .acceso-panel p {
+      margin: 0 0 22px;
+      color: var(--suave);
+    }
+
+    .acceso-formulario {
+      display: grid;
+      gap: 14px;
+    }
+
+    .acceso-formulario label {
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .acceso-formulario input {
+      width: 100%;
+      min-height: 56px;
+      padding: 13px 18px;
+      border: 1px solid rgba(143,86,68,0.28);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.9);
+      color: var(--texto);
+      font: inherit;
+    }
+
+    .acceso-formulario input:focus {
+      outline: 3px solid rgba(127,189,221,0.36);
+      border-color: #7fbddd;
+    }
+
+    .acceso-error {
+      min-height: 1.5em;
+      margin: 0 !important;
+      color: #a14641 !important;
+      font-weight: 700;
+    }
 
     .contenedor {
       width: var(--ancho);
@@ -303,7 +378,8 @@
       .boton,
       .instagram-enlace,
       .hero-panel,
-      .hero-media img {
+      .hero-media img,
+      .carrusel-pista {
         animation: none;
         transition: none;
       }
@@ -434,6 +510,77 @@
       border: 0;
       border-radius: 14px;
       background: white;
+    }
+
+    .carrusel {
+      position: relative;
+      overflow: hidden;
+      width: min(100%, 760px);
+      margin: 0 auto;
+      border: 1px solid var(--borde);
+      border-radius: var(--radio-lg);
+      background: linear-gradient(135deg, #f6e7dd, #eef2e9);
+      box-shadow: 0 14px 32px rgba(75,45,34,0.09);
+    }
+
+    .carrusel-pista {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .carrusel-slide {
+      flex: 0 0 100%;
+      min-width: 0;
+    }
+
+    .carrusel-slide img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+
+    .carrusel-control {
+      position: absolute;
+      top: 50%;
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      border: 1px solid rgba(143,86,68,0.22);
+      border-radius: 50%;
+      background: rgba(255,250,246,0.92);
+      color: var(--terracota-oscuro);
+      box-shadow: 0 8px 20px rgba(75,45,34,0.14);
+      cursor: pointer;
+      font-size: 1.8rem;
+      line-height: 1;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+
+    .carrusel-anterior { left: 14px; }
+    .carrusel-siguiente { right: 14px; }
+
+    .carrusel-indicadores {
+      display: flex;
+      justify-content: center;
+      gap: 9px;
+      padding: 14px;
+      background: rgba(255,255,255,0.74);
+    }
+
+    .carrusel-indicador {
+      width: 12px;
+      height: 12px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(143,86,68,0.28);
+      cursor: pointer;
+    }
+
+    .carrusel-indicador.activo {
+      background: var(--terracota);
+      transform: scale(1.2);
     }
 
     .grid-2 {
@@ -761,6 +908,15 @@
         border-radius: 14px;
       }
 
+      .carrusel-control {
+        width: 42px;
+        height: 42px;
+        font-size: 1.55rem;
+      }
+
+      .carrusel-anterior { left: 8px; }
+      .carrusel-siguiente { right: 8px; }
+
       .instagram-enlace,
       summary {
         font-size: 1.06rem;
@@ -809,6 +965,19 @@
   </style>
 </head>
 <body>
+  <div class="acceso-overlay" role="dialog" aria-modal="true" aria-labelledby="acceso-titulo">
+    <div class="acceso-panel">
+      <h1 id="acceso-titulo">Acceso privado</h1>
+      <p>Introduce la contraseña para abrir la landing.</p>
+      <form class="acceso-formulario">
+        <label for="acceso-password">Contraseña</label>
+        <input id="acceso-password" name="password" type="password" autocomplete="current-password" required />
+        <button class="boton boton-principal" type="submit">Entrar</button>
+        <p class="acceso-error" role="alert" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
   <header class="hero">
     <div class="contenedor">
       <div class="hero-panel">
@@ -1002,6 +1171,39 @@
       <div class="contenedor">
         <div class="bloque bloque-suave">
           <div class="cabecera-seccion">
+            <h2>Galería</h2>
+          </div>
+
+          <div class="carrusel" aria-roledescription="carrusel" aria-label="Galería de imágenes">
+            <div class="carrusel-pista">
+              <div class="carrusel-slide" aria-hidden="false">
+                <img src="bebida.PNG" alt="Encuentro de un grupo alrededor de una mesa" />
+              </div>
+              <div class="carrusel-slide" aria-hidden="true">
+                <img src="infografia.PNG" alt="Infografía con un mapa rápido de ChatGPT en iPhone" />
+              </div>
+              <div class="carrusel-slide" aria-hidden="true">
+                <img src="tiburon.PNG" alt="Escena junto al mar con un tiburón saltando cerca de la orilla" />
+              </div>
+            </div>
+
+            <button class="carrusel-control carrusel-anterior" type="button" aria-label="Imagen anterior">&#8249;</button>
+            <button class="carrusel-control carrusel-siguiente" type="button" aria-label="Imagen siguiente">&#8250;</button>
+
+            <div class="carrusel-indicadores" aria-label="Seleccionar imagen">
+              <button class="carrusel-indicador activo" type="button" aria-label="Mostrar imagen 1" aria-current="true"></button>
+              <button class="carrusel-indicador" type="button" aria-label="Mostrar imagen 2"></button>
+              <button class="carrusel-indicador" type="button" aria-label="Mostrar imagen 3"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="contenedor">
+        <div class="bloque bloque-suave">
+          <div class="cabecera-seccion">
             <h2>Descarga tu regalo</h2>
             <p>Llévate esta guía práctica gratuita para empezar a cuidar tus emociones con más claridad y calma.</p>
           </div>
@@ -1133,6 +1335,42 @@
     <div class="contenedor">Taller de Gestión Emocional · Online · Gratuito</div>
   </footer>
   <script>
+    const accesoOverlay = document.querySelector('.acceso-overlay');
+    const accesoFormulario = document.querySelector('.acceso-formulario');
+    const accesoPassword = document.querySelector('#acceso-password');
+    const accesoError = document.querySelector('.acceso-error');
+
+    const desbloquearLanding = () => {
+      document.documentElement.classList.remove('acceso-pendiente');
+      accesoOverlay.hidden = true;
+    };
+
+    try {
+      if (sessionStorage.getItem('landing-desbloqueada') === 'si') {
+        desbloquearLanding();
+      } else {
+        accesoPassword.focus();
+      }
+    } catch (error) {
+      accesoPassword.focus();
+    }
+
+    accesoFormulario.addEventListener('submit', (evento) => {
+      evento.preventDefault();
+
+      if (accesoPassword.value === '123') {
+        try {
+          sessionStorage.setItem('landing-desbloqueada', 'si');
+        } catch (error) {
+          // El acceso sigue funcionando aunque el navegador bloquee sessionStorage.
+        }
+        desbloquearLanding();
+      } else {
+        accesoError.textContent = 'La contraseña no es correcta.';
+        accesoPassword.select();
+      }
+    });
+
     const reducirMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (!reducirMovimiento && 'IntersectionObserver' in window) {
@@ -1163,6 +1401,55 @@
       imagenPrincipalBase.addEventListener('click', () => {
         imagenPrincipal.classList.toggle('mostrar-alternativa');
       });
+    }
+
+    const carrusel = document.querySelector('.carrusel');
+
+    if (carrusel) {
+      const pista = carrusel.querySelector('.carrusel-pista');
+      const slides = [...carrusel.querySelectorAll('.carrusel-slide')];
+      const indicadores = [...carrusel.querySelectorAll('.carrusel-indicador')];
+      const botonAnterior = carrusel.querySelector('.carrusel-anterior');
+      const botonSiguiente = carrusel.querySelector('.carrusel-siguiente');
+      let slideActual = 0;
+      let inicioToque = 0;
+
+      const mostrarSlide = (indice) => {
+        slideActual = (indice + slides.length) % slides.length;
+        pista.style.transform = `translateX(-${slideActual * 100}%)`;
+
+        slides.forEach((slide, posicion) => {
+          slide.setAttribute('aria-hidden', posicion !== slideActual);
+        });
+
+        indicadores.forEach((indicador, posicion) => {
+          const activo = posicion === slideActual;
+          indicador.classList.toggle('activo', activo);
+          indicador.toggleAttribute('aria-current', activo);
+        });
+      };
+
+      botonAnterior.addEventListener('click', () => mostrarSlide(slideActual - 1));
+      botonSiguiente.addEventListener('click', () => mostrarSlide(slideActual + 1));
+      indicadores.forEach((indicador, indice) => {
+        indicador.addEventListener('click', () => mostrarSlide(indice));
+      });
+
+      carrusel.addEventListener('keydown', (evento) => {
+        if (evento.key === 'ArrowLeft') mostrarSlide(slideActual - 1);
+        if (evento.key === 'ArrowRight') mostrarSlide(slideActual + 1);
+      });
+
+      carrusel.addEventListener('touchstart', (evento) => {
+        inicioToque = evento.changedTouches[0].clientX;
+      }, { passive: true });
+
+      carrusel.addEventListener('touchend', (evento) => {
+        const desplazamiento = evento.changedTouches[0].clientX - inicioToque;
+        if (Math.abs(desplazamiento) > 50) {
+          mostrarSlide(slideActual + (desplazamiento < 0 ? 1 : -1));
+        }
+      }, { passive: true });
     }
   </script>
 </body>
