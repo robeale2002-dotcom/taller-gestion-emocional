@@ -248,6 +248,12 @@
       border-color: rgba(79,145,184,0.28);
     }
 
+    .boton-whatsapp {
+      background: linear-gradient(135deg, #dff4e6, #b9e4c8);
+      color: #185f38;
+      border-color: rgba(37,155,86,0.22);
+    }
+
     .calendario-popup {
       display: flex;
       margin-top: 14px;
@@ -590,6 +596,26 @@
       align-items: start;
     }
 
+    .compartir-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.72fr) 1.28fr;
+      gap: clamp(22px, 4vw, 42px);
+      align-items: center;
+    }
+
+    .compartir-imagen {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border: 10px solid rgba(255,255,255,0.76);
+      border-radius: var(--radio-lg);
+      box-shadow: 0 14px 30px rgba(75,45,34,0.10);
+    }
+
+    .compartir-contenido .cabecera-seccion {
+      margin-bottom: 0;
+    }
+
     .grid-4 {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -804,8 +830,14 @@
       .hero-grid,
       .grid-2,
       .cta-grid,
-      .datos-grid {
+      .datos-grid,
+      .compartir-grid {
         grid-template-columns: 1fr;
+      }
+
+      .compartir-imagen {
+        width: min(100%, 420px);
+        margin: 0 auto;
       }
 
       .grid-4 {
@@ -1285,6 +1317,27 @@
               </span>
               <span>Instagram</span>
             </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="contenedor">
+        <div class="bloque bloque-suave">
+          <div class="compartir-grid">
+            <img class="compartir-imagen" src="AMIGA.jpg" alt="Ilustración sobre la amistad" />
+
+            <div class="compartir-contenido">
+              <div class="cabecera-seccion">
+                <h2>Invita a una amiga</h2>
+                <p>¿Conoces a alguien a quien este taller pueda ayudar? Compárteselo por WhatsApp.</p>
+              </div>
+
+              <div class="acciones">
+                <a class="boton boton-whatsapp" href="https://wa.me/?text=He%20visto%20este%20taller%20gratuito%20de%20Gesti%C3%B3n%20Emocional%20y%20creo%20que%20te%20puede%20interesar%3A%20https%3A%2F%2Frobeale2002-dotcom.github.io%2Ftaller-gestion-emocional%2F" target="_blank" rel="noopener">Compartir por WhatsApp</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
