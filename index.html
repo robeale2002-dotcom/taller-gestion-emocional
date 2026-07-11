@@ -826,6 +826,61 @@
       padding: 8px 0 34px;
     }
 
+    .configurar-cookies {
+      margin-top: 8px;
+      padding: 3px 6px;
+      border: 0;
+      background: transparent;
+      color: var(--terracota-oscuro);
+      font: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+
+    .aviso-cookies {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      left: 18px;
+      width: min(720px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: clamp(20px, 4vw, 28px);
+      border: 1px solid rgba(143,86,68,0.22);
+      border-radius: var(--radio-lg);
+      background: rgba(255,250,246,0.97);
+      box-shadow: 0 20px 55px rgba(75,45,34,0.22);
+      backdrop-filter: blur(12px);
+      z-index: 9000;
+    }
+
+    .aviso-cookies[hidden] {
+      display: none;
+    }
+
+    .aviso-cookies h2 {
+      margin: 0 0 8px;
+      color: var(--terracota-oscuro);
+      font-size: clamp(1.45rem, 4vw, 1.85rem);
+      line-height: 1.15;
+    }
+
+    .aviso-cookies p {
+      margin: 0;
+      color: var(--suave);
+      font-size: 1rem;
+    }
+
+    .aviso-cookies .acciones {
+      margin-top: 18px;
+    }
+
+    .cookies-rechazar {
+      background: rgba(255,255,255,0.88);
+      color: var(--terracota-oscuro);
+      border-color: rgba(143,86,68,0.25);
+    }
+
     @media (max-width: 980px) {
       .hero-grid,
       .grid-2,
@@ -948,6 +1003,13 @@
 
       .carrusel-anterior { left: 8px; }
       .carrusel-siguiente { right: 8px; }
+
+      .aviso-cookies {
+        right: 10px;
+        bottom: 10px;
+        left: 10px;
+        width: calc(100% - 20px);
+      }
 
       .instagram-enlace,
       summary {
@@ -1385,9 +1447,89 @@
   </main>
 
   <footer>
-    <div class="contenedor">Taller de Gestión Emocional · Online · Gratuito</div>
+    <div class="contenedor">
+      <div>Taller de Gestión Emocional · Online · Gratuito</div>
+      <button class="configurar-cookies" type="button">Configurar cookies</button>
+    </div>
   </footer>
+
+  <aside class="aviso-cookies" role="dialog" aria-modal="true" aria-labelledby="cookies-titulo" hidden>
+    <h2 id="cookies-titulo">Cookies y analítica</h2>
+    <p>Usamos Google Analytics para conocer de forma anónima cómo se utiliza la landing. Puedes aceptar o rechazar la analítica.</p>
+    <div class="acciones">
+      <button class="boton boton-principal cookies-aceptar" type="button">Aceptar analítica</button>
+      <button class="boton cookies-rechazar" type="button">Rechazar</button>
+    </div>
+  </aside>
+
   <script>
+    const ID_ANALYTICS = 'G-8BE2ZT34RP';
+    const CLAVE_CONSENTIMIENTO = 'consentimiento-analitica';
+    const avisoCookies = document.querySelector('.aviso-cookies');
+    const aceptarCookies = document.querySelector('.cookies-aceptar');
+    const rechazarCookies = document.querySelector('.cookies-rechazar');
+    const configurarCookies = document.querySelector('.configurar-cookies');
+    let analyticsCargado = false;
+
+    const cargarAnalytics = () => {
+      window[`ga-disable-${ID_ANALYTICS}`] = false;
+
+      if (analyticsCargado || document.querySelector('script[data-google-analytics]')) return;
+      analyticsCargado = true;
+
+      const etiquetaGoogle = document.createElement('script');
+      etiquetaGoogle.async = true;
+      etiquetaGoogle.src = `https://www.googletagmanager.com/gtag/js?id=${ID_ANALYTICS}`;
+      etiquetaGoogle.dataset.googleAnalytics = 'true';
+      document.head.appendChild(etiquetaGoogle);
+
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function() {
+        window.dataLayer.push(arguments);
+      };
+      window.gtag('js', new Date());
+      window.gtag('config', ID_ANALYTICS);
+    };
+
+    const guardarConsentimiento = (eleccion) => {
+      try {
+        localStorage.setItem(CLAVE_CONSENTIMIENTO, eleccion);
+      } catch (error) {
+        // La elección funciona en esta visita aunque el almacenamiento esté bloqueado.
+      }
+      avisoCookies.hidden = true;
+    };
+
+    const aceptarAnalitica = () => {
+      guardarConsentimiento('aceptado');
+      cargarAnalytics();
+    };
+
+    const rechazarAnalitica = () => {
+      window[`ga-disable-${ID_ANALYTICS}`] = true;
+      guardarConsentimiento('rechazado');
+    };
+
+    let consentimientoGuardado = null;
+    try {
+      consentimientoGuardado = localStorage.getItem(CLAVE_CONSENTIMIENTO);
+    } catch (error) {
+      consentimientoGuardado = null;
+    }
+
+    if (consentimientoGuardado === 'aceptado') {
+      cargarAnalytics();
+    } else if (consentimientoGuardado !== 'rechazado') {
+      avisoCookies.hidden = false;
+    }
+
+    aceptarCookies.addEventListener('click', aceptarAnalitica);
+    rechazarCookies.addEventListener('click', rechazarAnalitica);
+    configurarCookies.addEventListener('click', () => {
+      avisoCookies.hidden = false;
+      aceptarCookies.focus();
+    });
+
     const accesoOverlay = document.querySelector('.acceso-overlay');
     const accesoFormulario = document.querySelector('.acceso-formulario');
     const accesoPassword = document.querySelector('#acceso-password');
