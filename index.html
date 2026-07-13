@@ -1497,6 +1497,7 @@
       } catch (error) {
         // La elección funciona en esta visita aunque el almacenamiento esté bloqueado.
       }
+      consentimientoGuardado = eleccion;
       avisoCookies.hidden = true;
     };
 
@@ -1529,6 +1530,47 @@
       avisoCookies.hidden = false;
       aceptarCookies.focus();
     });
+
+    if (!window.eventosAnalyticsInicializados) {
+      window.eventosAnalyticsInicializados = true;
+
+      document.addEventListener('click', (evento) => {
+        if (
+          consentimientoGuardado !== 'aceptado' ||
+          !analyticsCargado ||
+          typeof window.gtag !== 'function'
+        ) return;
+
+        const elemento = evento.target.closest('a, button');
+        if (!elemento) return;
+
+        const enlace = elemento.tagName === 'A' ? elemento.href : '';
+        let nombreEvento = null;
+
+        if (enlace.startsWith('https://forms.gle/')) {
+          nombreEvento = 'clic_inscripcion';
+        } else if (enlace.startsWith('https://wa.me/34657073866')) {
+          nombreEvento = 'clic_whatsapp';
+        } else if (
+          enlace.startsWith('https://calendar.app.google/') ||
+          elemento.closest('.calendario-popup')
+        ) {
+          nombreEvento = 'clic_reservar_cita';
+        } else if (enlace.startsWith('https://www.instagram.com/')) {
+          nombreEvento = 'clic_instagram';
+        } else if (enlace.startsWith('https://drive.google.com/file/')) {
+          nombreEvento = 'descarga_guia';
+        } else if (elemento.matches('.boton-whatsapp')) {
+          nombreEvento = 'compartir_whatsapp';
+        } else if (enlace.startsWith('https://open.spotify.com/')) {
+          nombreEvento = 'clic_spotify';
+        }
+
+        if (nombreEvento) {
+          window.gtag('event', nombreEvento);
+        }
+      });
+    }
 
     const accesoOverlay = document.querySelector('.acceso-overlay');
     const accesoFormulario = document.querySelector('.acceso-formulario');
